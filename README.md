@@ -62,3 +62,5 @@ INICIALIZAR AMBIENTE
 # Heroku
 pip install django-on-heroku
 pip install pywin32==302
+pip install pipwin
+pywin32==302; platform_system=="Windows"
