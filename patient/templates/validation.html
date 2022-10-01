@@ -1,0 +1,422 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='#' rel='stylesheet'>
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        body {
+            background-color: #f9f9fa
+        }
+
+        .flex {
+            -webkit-box-flex: 1;
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto
+        }
+
+        .accordion {
+            background-color: #eee;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            transition: 0.4s;
+        }
+
+        .active,
+        .accordion:hover {
+            background-color: #ccc;
+        }
+
+        .panel {
+            padding: 0 18px;
+            display: none;
+            background-color: white;
+            overflow: hidden;
+        }
+
+        @media (max-width:991.98px) {
+            .padding {
+                padding: 1.5rem
+            }
+        }
+
+        @media (max-width:767.98px) {
+            .padding {
+                padding: 1rem
+            }
+        }
+
+        .padding {
+            padding: 5rem
+        }
+
+        .card {
+            background: #fff;
+            border-width: 0;
+            border-radius: .25rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
+            margin-bottom: 1.5rem
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(19, 24, 44, .125);
+            border-radius: .25rem
+        }
+
+        .list-item {
+            position: relative;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word
+        }
+
+        .list-item.block .media {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0
+        }
+
+        .list-item.block .list-content {
+            padding: 1rem
+        }
+
+        .w-40 {
+            width: 40px !important;
+            height: 40px !important
+        }
+
+        .avatar {
+            position: relative;
+            line-height: 1;
+            border-radius: 500px;
+            white-space: nowrap;
+            font-weight: 700;
+            border-radius: 100%;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -ms-flex-negative: 0;
+            flex-shrink: 0;
+            border-radius: 500px;
+            box-shadow: 0 5px 10px 0 rgba(50, 50, 50, .15)
+        }
+
+        .item {
+            width: 100%;
+            height: 90px;
+            border: 1px solid black;
+        }
+
+        .item:hover {
+            border: 3px solid black;
+        }
+
+        #conteudo {
+            width: 95%;
+            height: 500px;
+            border: 2px solid #ccc;
+            padding: 10px;
+        }
+
+        .ico {
+            float: left;
+            width: 3%;
+            border: 2px solid #fff000;
+            cursor: move;
+        }
+
+        .conteudoItem {
+            float: left;
+            width: 90%;
+        }
+
+        .avatar img {
+            border-radius: inherit;
+            width: 100%
+        }
+
+        .gd-primary {
+            color: #fff;
+            border: none;
+            background: #448bff linear-gradient(45deg, #448bff, #44e9ff)
+        }
+
+        .flex {
+            -webkit-box-flex: 1;
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto
+        }
+
+        .text-color {
+            color: #5e676f
+        }
+
+        .text-sm {
+            font-size: .825rem
+        }
+
+        .h-1x {
+            height: 1.25rem;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical
+        }
+
+        .no-wrap {
+            white-space: nowrap
+        }
+
+        .list-row .list-item {
+            -ms-flex-direction: row;
+            flex-direction: row;
+            -ms-flex-align: center;
+            align-items: center;
+            padding: .75rem .625rem;
+        }
+
+        .list-item {
+            position: relative;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+        }
+
+        .list-row .list-item>* {
+            padding-left: .625rem;
+            padding-right: .625rem;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        a:focus,
+        a:hover {
+            text-decoration: none;
+        }
+
+        list-item {
+            background: white;
+        }
+    </style>
+</head>
+
+<body className='snippet-body'>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#sortable").sortable();
+            $("#sortable").disableSelection();
+        });
+    </script>
+    <div class="page-content page-container" id="page-content">
+        <div class="padding">
+            {% if patient_records %}
+            <section>
+                <div class="group" center>
+                    <ul id="sortable" class="list-group">
+                        {% for data in patient_records %}
+                        <div>
+                            <a href="{% url 'disable' data.id %}" class="btn btn-danger m-1 float-right"> Paciente Inválido </a>
+                            <!-- Botão para acionar modal -->
+                            <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#Justificativa">
+                                Paciente Inválido
+                            </button>
+                        </div>
+                        <div data-id={{data.name_patient}} id="Orders" class="card">
+                            <div id="order">01</div>
+                            
+                            <div class="card-body">
+                                
+                                <button id="report" type="submit" class="btn btn-block">Paciente Inválido</button>
+                                <h6 class="card-title">{{data.name_patient}}</h6>
+                                
+
+                                <button class="accordion">Aferições do paciente</button>
+                                <div class="panel">
+                                    <p>
+                                        Score Total: {{data.scoreTotal}} <br>
+                                        NEUROLÓGICO: {{ data.MeaningNeurological }} <br>
+                                        CARDIOVASCULAR: {{ data.MeaningCardiovascular }} <br>
+                                        RESPIRATÓRIO: {{ data.MeaningRespiratory  }} <br>
+                                        COAGULAÇÃO: {{ data.MeaningCoagulation }} <br>
+                                        HEPÁTICO: {{ data.MeaningHepatic }} <br>
+                                        RENAL: {{ data.MeaningRenal }} <br>
+                                        SPICT: {{ data.MeaningSpict }} <br>
+                                        ECOG: {{ data.MeaningEcog }} <br>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>                        
+                        {% endfor %}
+                    </ul>
+                </div>
+                <button id="get" type="submit" class="btn btn-success btn-block playlist">Pronto</button>
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="#Justificativa" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="TituloModalCentralizado">Título do modal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                        ...
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary">Salvar mudanças</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+            </section>
+
+            {% else %}
+            <p>Não existem dados para preencher!</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'>
+    </script>
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+    </script>
+    <!--https://pt.stackoverflow.com/questions/75761/como-usar-o-m%C3%A9todo-update-do-jquery-sortable
+    <script>
+        $(function () {
+            $("#group").sortable({
+                axis: 'y',
+                handle: ".card",
+                start: function (event, ui) {
+                    console.log("Chegou aqui");
+                    ui.card-body.startPos = ui.card-body.index();
+                },
+                update: function (event, ui) {
+                    console.log("Posição inicial: " + ui.item.startPos + " Nova posição: " + ui.item.index());
+
+                    // Atualizando index para o usuário...
+                    // Obtendo todos os itens:
+                    var itens = $(this).children();
+                    console.log("Quantidade de itens: " + itens.length);
+
+                    // Atualizando valor em cada item:
+                    itens.each(function () {
+                        var item = $(this).children();
+                        console.log("Quantidade de filhos: " + item.length);
+
+                        var newVal = $(this).index() + 1;
+                        $(item).children('.index').html(newVal);
+
+                    });
+
+                    console.log("***********************************");
+                }
+            });
+
+            $("#sortable").disableSelection();
+            
+ //----------------------------------------------------------
+        });
+        -->
+    </script>
+
+    <!--https://mdbootstrap.com/support/jquery/jquery-sortable-get-order/-->
+    <script>
+        $('#get').on('click', function () {
+            var idsInOrder = $("#sortable").sortable('toArray', {
+                attribute: 'data-id'
+            });
+            var list = []
+            for (var position = 0; position < (idsInOrder.length); position++) {
+                console.log({
+                        order: position + 1,
+                        id_pacient: idsInOrder[position]
+                    }
+                )
+            }
+            // Envio para o Back
+            $.ajax({
+                method: "POST",
+                action: "",
+                data: {
+                    order: position + 1,
+                    id_pacient: idsInOrder[position]
+                }
+            });
+            console.log(idsInOrder);
+        })
+    </script>
+</body>
+
+{% endblock  %}
+

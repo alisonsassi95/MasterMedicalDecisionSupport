@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class='text-center text-secondary mt-4 p-2'> Todos os dados</h1>
+<hr>
+<nav class="navbar navbar-light bg-light">
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="search" id="myInput" placeholder="Pesquisar" aria-label="Pesquisar">
+      <a href="{% url 'recordsAcIn' 1 %}" class="btn btn-info m-1"> Ativos </a>
+      <a href="{% url 'recordsAcIn' 0 %}" class="btn btn-primary m-1"> Inativos </a>
+    </form>
+  </nav>
+
+<div class="table-responsive">
+    <table class="table table-striped" >
+        <thead>
+            <tr>
+                <th class='table-secondary' scope="col" data-toggle="tooltip" title="Identificador do Paciente">Id</th>
+                <th class='table-secondary' scope="col" data-toggle="tooltip" title="Nome do Paciente">Nome</th>
+                <th class='table-secondary' scope="col" data-toggle="tooltip" title="Neurological" >Neuro</th>
+                <th class='table-secondary' scope="col" data-toggle="tooltip" title="Cardiovascular" >Cardio</th>
+                <th class='table-secondary' scope="col" data-toggle="tooltip" title="Respitatório" >Resp</th>
+                <th class='table-secondary' scope="col" data-toggle="tooltip" title="Coagulaçao" >Coag</th>
+                <th class='table-secondary' scope="col" data-toggle="tooltip" title="Hepático" >Hep</th>
+                <th class='table-secondary' scope="col" data-toggle="tooltip" title="Renal" >Renal</th>
+                <th class='table-secondary' scope="col" data-toggle="tooltip" title="Índice de Comorbidade de Charlson" >ICC</th>
+                <th class='table-secondary' scope="col" data-toggle="tooltip" title="Eastern Cooperative Oncology Group" >ECOG</th>
+                <th class='table-secondary' scope="col" data-toggle="tooltip" title="Cálculo SOFA SOFA" >SOFA</th>
+                <th class='table-secondary' scope="col" data-toggle="tooltip" title="Cálculo Fragility" >Frag</th>
+                <th class='table-secondary' scope="col" data-toggle="tooltip" title="Cálculo Total" >Tot</th>
+                <th class='table-secondary' scope="col" data-toggle="tooltip" title="classificação" >Clas</th>
+                <th class='table-secondary' scope="col">Act</th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+
+            {% if patient_records %}
+
+            {% for data in patient_records %}
+            <tr>
+                <th scope="row">{{ data.id }}</th>
+                <td>{{ data.name_patient  }}</td>
+                <td>{{ data.MeaningNeurological }}</td>
+                <td>{{ data.MeaningCardiovascular }}</td>
+                <td>{{ data.MeaningRespiratory  }}</td>
+                <td>{{ data.MeaningCoagulation }}</td>
+                <td>{{ data.MeaningHepatic }}</td>
+                <td>{{ data.MeaningRenal }}</td>
+                <td>{{ data.MeaningIcc }}</td>
+                <td>{{ data.MeaningEcog }}</td>
+                <td>{{ data.scoreSOFA }}</td>
+                <td>{{ data.scoreFragility }}</td>
+                <td>{{ data.scoreTotal }}</td>
+                <td>{{ data.classification }}</td>
+                <td>
+
+                  <a href="{% url 'disable' data.id %}" class="btn btn-danger m-1"> Desativar </a>
+
+               </td>
+
+            </tr>
+
+            {% endfor %}
+
+            {% else %}
+
+            <p>No Data in The Database so Far!</p>
+
+            {% endif %}
+
+        </tbody>
+    </table>
+    <!--
+      <div class="pagination">
+      <span class="step-links">
+          {% if patient_records.has_previous %}
+              <a href="?page={{ patient_records.previous_page_number }}">Anterior</a>
+          {% endif %}
+      
+          <span class="current">
+              {{ patient_records.number }} de {{ patient_records.paginator.num_pages }}
+          </span>
+      
+          {% if patient_records.has_next %}
+              <a href="?page={{ patient_records.next_page_number }}">Próxima</a>
+          {% endif %}
+      </span>
+  </div>
+  -->
+</div>
+<script>
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+    </script>
+{% endblock  %}
+
