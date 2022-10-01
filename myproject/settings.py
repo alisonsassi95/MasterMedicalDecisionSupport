@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+import django_on_heroku
 
 from decouple import Csv, config
 from dj_database_url import parse as dburl
@@ -133,3 +134,5 @@ LOGOUT_REDIRECT_URL = 'core:index'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+django_on_heroku.settings(locals())

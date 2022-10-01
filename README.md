@@ -56,3 +56,9 @@ Step by Step Comands
 INICIALIZAR AMBIENTE
 [] Iniciar servidor:
 * Iniciar Servidor: python manage.py runserver
+
+
+
+# Heroku
+pip install django-on-heroku
+pip install pywin32==302
