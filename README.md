@@ -22,38 +22,37 @@
     
     - É o **nome do sistema** que está sendo desenvolvido para a utilização do Trabalho.
 
+# Passo a passo
 
-Step by Step Comands
-
-INICIALIZAR AMBIENTE
+```
+git clone https://github.com/rg3915/django-auth-tutorial.git
+cd django-auth-tutorial
+git branch base origin/base
+git checkout base
 
 [] Criar ambiente virtual: 
 * Criar um ambiente virtual: python -m venv venv
 * Ativar: .\venv\Scripts\activate
 
+pip install -U pip
 [] Rodar comando para as dependências:
 * Instalar todos as dependencias: pip install -r requirements.txt
+pip install ipdb
+
+python contrib/env_gen.py
 
 [] Banco de dados:
 * Rodar o MakeMigrations: python manage.py makemigrations
 * Rodar o Migrate: python manage.py migrate
 
-[] Criar um usuário Admin: python manage.py createsuperuser
-Seguir os passos do console.
-
-
-[] Iniciar servidor:
-* Iniciar Servidor: python manage.py runserver
+python manage.py createsuperuser --username="admin" --email="admin@email.com"
 
 - Comandos
 * Gerar o arquivo requeriments: pip freeze > requirements.txt
+python manage.py shell_plus
+```
+Step by Step Comands
 
-Comandos inclusos no requirements:
-< ------------------------------------->
-* Instalar Django: pip install django
-* Instalar Models-Utils: pip install django-model-utils
-* Instalar Pandas: pip install pandas
-* Instalar Scikit: pip install -U scikit-learn
-* Instalar Name Fake: pip install Faker
-* pip install dj-database-url
-<---------------------------------------------->
+INICIALIZAR AMBIENTE
+[] Iniciar servidor:
+* Iniciar Servidor: python manage.py runserver
