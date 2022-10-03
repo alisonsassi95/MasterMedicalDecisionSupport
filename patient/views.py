@@ -1,4 +1,5 @@
 from pickle import TRUE
+from typing import List
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from .models import DataPatient
@@ -26,6 +27,11 @@ def db_record(request):
     return render(request, 'database.html', context)
 
 @login_required
+def endValidation(request):
+    return render(request, 'endValidation.html')
+
+
+@login_required
 def db_record_status(request,status):
     if (status == 0):
         patientRecords = DataPatient.objects.filter(active = 0)
@@ -38,7 +44,6 @@ def db_record_status(request,status):
 
 @login_required
 def validation_group(request, validateNumb):
-    # Instensão é de pegar os dados de pacientes no Grupo passado...
     patientRecords = DataPatient.objects.filter(group_patient=validateNumb).filter(active = 1)
     return render(request, 'validation.html', {'patient_records': patientRecords})
 
@@ -48,3 +53,11 @@ def disablePatient(request, ValueId):
         idPatient.active = False
         idPatient.save()
     return redirect('records')
+
+@login_required
+def justification(request, group_patient):
+    # abrir um modal 
+    #retornar a página
+    print(group_patient)
+    validation_group(request,group_patient)
+    #return render(request, 'validation.html', {'patient_records': patientRecords})
