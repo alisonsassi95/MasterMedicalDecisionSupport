@@ -243,14 +243,14 @@
                         {% for data in patient_records %}
                         <div id="{{ data.id }}">
                             <div class="move">
-                                <div>
-                                    <a href="{% url 'disable' data.id %}" class="btn btn-danger m-1 float-right">
-                                        {{data.name_patient}} é Inválido </a>
-                                </div>
+                                
                                 <div data-id={{data.name_patient}} id="Orders" class="card">
-                                    <div id="order">01</div>
-                                    <a>{{data.id}}</a>
-
+                                    <div>
+                                        <a id="index">0</a>
+                                        <a href="{% url 'disable' data.id %}" class="btn btn-danger m-1 float-right">
+                                            {{data.name_patient}} é Inválido </a>
+                                    </div>
+                                    
                                     <div class="card-body">
                                         <h6 class="card-title">{{data.name_patient}}</h6>
 
@@ -276,6 +276,7 @@
                     </ul>
                 </div>
                 
+                <!--<button href="{% url 'endValidation' %}" type="submit" class="btn btn-success btn-block playlist">Pronto</button> -->
                 <button href="{% url 'endValidation' %}" type="submit" class="btn btn-success btn-block playlist">Pronto</button>
             </section>
 
@@ -315,6 +316,7 @@
                 },
                 update: function (event, ui) {
                     console.log("Posição inicial: " + ui.item.startPos + " Nova posição: " + ui.item.index());
+                    var IndexPos = ui.item.startPos;
 
                     // Atualizando index para o usuário...
                     // Obtendo todos os itens:
@@ -344,7 +346,7 @@
     <script>
         $('#get').on('click', function () {
             var idsInOrder = $("#sortable").sortable('toArray', {
-                attribute: 'data-id'
+                attribute: '.move'
             });
             var list = []
             for (var position = 0; position < (idsInOrder.length); position++) {
