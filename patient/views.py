@@ -1,11 +1,15 @@
-from pickle import TRUE
-from typing import List
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from .models import DataPatient
+from django.views.decorators.csrf import csrf_exempt
 
 from django.core.paginator import Paginator
 
+
+@login_required
+def endValidation():
+    return render('endValidation.html')
 
 @login_required
 def makeGroups(request):
@@ -26,10 +30,6 @@ def db_record(request):
     }
     return render(request, 'database.html', context)
 
-@login_required
-def endValidation(request):
-    return render(request, 'endValidation.html')
-
 
 @login_required
 def db_record_status(request,status):
@@ -44,8 +44,27 @@ def db_record_status(request,status):
 
 @login_required
 def validation_group(request, validateNumb):
-    patientRecords = DataPatient.objects.filter(group_patient=validateNumb).filter(active = 1)
+    patientRecords = DataPatient.objects.filter(group_patient=validateNumb).filter(active = 1).order_by('classification')
     return render(request, 'validation.html', {'patient_records': patientRecords})
+
+@login_required
+@csrf_exempt
+def updateOrder(request):
+    if request.method == 'POST':
+        # Colocar a classificação conforme o ID
+        # pegar o valor request.id
+        # pegar o valor request.value
+        # pegar o valor do médico logado
+        print("-------------------------")
+        for key, value in request.POST.items():
+            print('%s %s ' % (key,value))
+            idPatient = DataPatient.objects.filter(id=key).first()
+            print(idPatient.id)
+            idPatient.classification = value
+            idPatient.exported = 1
+            #idPatient.validatedDoctor = request.user.id
+            idPatient.save()
+        return
 
 @login_required
 def disablePatient(request, ValueId):
@@ -56,8 +75,6 @@ def disablePatient(request, ValueId):
 
 @login_required
 def justification(request, group_patient):
-    # abrir um modal 
-    #retornar a página
     print(group_patient)
     validation_group(request,group_patient)
     #return render(request, 'validation.html', {'patient_records': patientRecords})

@@ -21,10 +21,12 @@ class DataPatient(models.Model):
     MeaningEcog = models.CharField(max_length=200)
     scoreSOFA = models.IntegerField()
     scoreAmib = models.IntegerField()
-    group_patient = models.IntegerField() 
+    group_patient = models.IntegerField()
     classification = models.IntegerField()
     active = models.BooleanField()
     exported = models.BooleanField()
+    validatedDoctor = models.BooleanField()
+    justification = models.CharField(max_length=1000)
     class Meta:
         db_table = 'patient'
 

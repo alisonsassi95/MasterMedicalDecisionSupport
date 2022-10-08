@@ -3,15 +3,9 @@
 {% block content %}
 
   <div class="jumbotron">
-    <h1>Seja bem vindo(a) Dr(a). {{ user }}!</h1>
-    <a>Inicialmente gostaria de agradecer a ajuda técnica para esse trabalho.
-      <br>
-      Com sua ajuda podemos melhorar nossos estudos na área da medicina, utilizando técnicas.
+    <h1>muito obrigado Dr(a). {{ user }}!</h1>
 
-      <h5> [] Aceito os termos de compromisso.</h5>
     </a>
-
-    Para inciar a validação clique em iniciar!
-    <a href="{% url 'makeGroups'%}" class="btn btn-success m-1">Iniciar validação</a>
+    <a href="{% url 'makeGroups'%}" class="btn btn-success m-1">Começar outra validação</a>
   </div>
 {% endblock content %}

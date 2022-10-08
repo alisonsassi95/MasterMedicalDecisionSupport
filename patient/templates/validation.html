@@ -238,23 +238,25 @@
         <div class="padding">
             {% if patient_records %}
             <section>
+                <form>
                 <div class="group" center>
                     <ul id="sortable" class="list-group">
                         {% for data in patient_records %}
-                        <div id="{{ data.id }}">
+                        <div id="{{ data.id }}" patient-name="{{ data.name_patient }}">
                             <div class="move">
                                 
                                 <div data-id={{data.name_patient}} id="Orders" class="card">
+                                    <a class="index">1</a>
                                     <div>
-                                        <a id="index">0</a>
-                                        <a href="{% url 'disable' data.id %}" class="btn btn-danger m-1 float-right">
-                                            {{data.name_patient}} é Inválido </a>
+                                        <a data-toggle="modal" data-target="#modal" class="btn btn-danger m-1 float-right" onclick="setaDadosModal('{{ data.id }}', '{{ data.name_patient }}')">
+                                            {{data.name_patient}} é inválido
+                                        </a>
                                     </div>
-                                    
+
                                     <div class="card-body">
                                         <h6 class="card-title">{{data.name_patient}}</h6>
 
-                                        <button class="accordion">Aferições do paciente</button>
+                                        <p class="accordion">Aferições do paciente</p>
                                         <div class="panel">
                                             <p>
                                                 Score Total: {{data.scoreTotal}} <br>
@@ -275,9 +277,8 @@
                         {% endfor %}
                     </ul>
                 </div>
-                
-                <!--<button href="{% url 'endValidation' %}" type="submit" class="btn btn-success btn-block playlist">Pronto</button> -->
-                <button href="{% url 'endValidation' %}" type="submit" class="btn btn-success btn-block playlist">Pronto</button>
+                <button id="get" type="button" class="btn btn-success btn-block playlist" disable>Pronto</button>
+            </form>
             </section>
 
             {% else %}
@@ -286,12 +287,43 @@
         </div>
     </div>
 
-    <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'>
-    </script>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Justificativa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">Justificativa do paciente. </div>
+
+                <div class="panel-body">
+                    <form id="modalExemplo" method="post" action="">
+                        <label for="justificative">Digite sua justificativa:</label>
+                        <textarea class="form-control" id="justificative" rows="3"></textarea>
+                        <input type="text" name="id-modal-patient" id="id-modal-patient" hidden>
+                    </form>
+                </div>
+                <div class="form-group">
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" href="{% url 'justification'%}" class="btn btn-primary">Salvar mudanças</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- Modal -->
+
+    <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
+
     <script>
         var acc = document.getElementsByClassName("accordion");
         var i;
-
         for (i = 0; i < acc.length; i++) {
             acc[i].addEventListener("click", function () {
                 this.classList.toggle("active");
@@ -303,11 +335,24 @@
                 }
             });
         }
-    </script>
-    <!--https://pt.stackoverflow.com/questions/75761/como-usar-o-m%C3%A9todo-update-do-jquery-sortable -->
-    <script>
-        $(function () {
 
+        function setaDadosModal(id,nome) {
+            $('.modal-body').html(' Justifique o motivo da invalidez do paciente ' + nome)
+            document.getElementById('id-modal-patient').value = id;
+
+        }
+
+        $(document).ready(function () {
+        const items = $("#sortable").children();
+        items.each(function () {
+            var item = $(this).children();
+            var newVal = $(this).index() + 1;
+            $(item).children('.card').children('.index').html(newVal);
+        });
+        })
+        let lista = {}
+        $(function () {
+        
             $("#sortable").sortable({
                 axis: 'y',
                 handle: ".move",
@@ -316,57 +361,38 @@
                 },
                 update: function (event, ui) {
                     console.log("Posição inicial: " + ui.item.startPos + " Nova posição: " + ui.item.index());
-                    var IndexPos = ui.item.startPos;
-
-                    // Atualizando index para o usuário...
                     // Obtendo todos os itens:
                     var itens = $(this).children();
-                    console.log("Quantidade de itens: " + itens.length);
-
+                    //console.log("Quantidade de itens: " + itens.length);
                     // Atualizando valor em cada item:
                     itens.each(function () {
+                        //debugger
                         var item = $(this).children();
-                        console.log("Quantidade de filhos: " + item.length);
-
                         var newVal = $(this).index() + 1;
-                        $(item).children('.index').html(newVal);
-
+                        lista[this.id] = newVal;
+                        
+                        $(item).children('.card').children('.index').html(newVal);
                     });
-
-                    console.log("***********************************");
                 }
             });
 
             $("#sortable").disableSelection();
 
         });
-    </script>
 
-    <!--https://mdbootstrap.com/support/jquery/jquery-sortable-get-order/-->
-    <script>
         $('#get').on('click', function () {
-            var idsInOrder = $("#sortable").sortable('toArray', {
-                attribute: '.move'
-            });
-            var list = []
-            for (var position = 0; position < (idsInOrder.length); position++) {
-                console.log({
-                    order: position + 1,
-                    id_pacient: idsInOrder[position]
-                }
-                )
-            }
-            // Envio para o Back
-            $.ajax({
+            // Envio para o Back            
+            $.ajax('{% url 'updateOrder' %}',{
                 method: "POST",
-                action: "",
-                data: {
-                    order: position + 1,
-                    id_pacient: idsInOrder[position]
+                data: lista,
+                success: function(){
+                    window.location.replace('{% url 'records' %}')
                 }
             });
-            console.log(idsInOrder);
+            
+            
         })
+
     </script>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
