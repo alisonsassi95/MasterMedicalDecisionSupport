@@ -246,7 +246,7 @@
                             <div class="move">
                                 
                                 <div data-id={{data.name_patient}} id="Orders" class="card">
-                                    <a class="index">1</a>
+                                    <h5 class="index">1</h5>
                                     <div>
                                         <a data-toggle="modal" data-target="#modal" class="btn btn-danger m-1 float-right" onclick="setaDadosModal('{{ data.id }}', '{{ data.name_patient }}')">
                                             {{data.name_patient}} é inválido
@@ -256,7 +256,7 @@
                                     <div class="card-body">
                                         <h6 class="card-title">{{data.name_patient}}</h6>
 
-                                        <p class="accordion">Aferições do paciente</p>
+                                        <p class="accordion">Aferições do paciente (Clique para mais detalhes)</p>
                                         <div class="panel">
                                             <p>
                                                 Score Total: {{data.scoreTotal}} <br>
@@ -277,7 +277,7 @@
                         {% endfor %}
                     </ul>
                 </div>
-                <button id="get" type="button" class="btn btn-success btn-block playlist" disable>Pronto</button>
+                <button id="get" type="button" class="btn btn-success btn-block playlist">Pronto</button>
             </form>
             </section>
 
@@ -312,7 +312,7 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="button" href="{% url 'justification'%}" class="btn btn-primary">Salvar mudanças</button>
+                <button type="button" id="saveChanges" class="btn btn-primary">Salvar mudanças</button>
                 </div>
             </div>
             </div>
@@ -336,11 +336,27 @@
             });
         }
 
-        function setaDadosModal(id,nome) {
+        let changeS = {}
+        function setaDadosModal(id,nome,group) {
             $('.modal-body').html(' Justifique o motivo da invalidez do paciente ' + nome)
             document.getElementById('id-modal-patient').value = id;
-
         }
+        
+        $('#saveChanges').on('click', function () {
+            // Envio para o BackEnd            
+            const just = document.getElementById('justificative').value
+            const id = document.getElementById('id-modal-patient').value
+            changeS[id] = just
+            $.ajax('{% url 'justification' %}',{
+                method: "POST",
+                data: changeS,
+                success: function(){
+                    window.location.reload()
+                }
+            });
+            
+            
+        })
 
         $(document).ready(function () {
         const items = $("#sortable").children();
@@ -386,11 +402,9 @@
                 method: "POST",
                 data: lista,
                 success: function(){
-                    window.location.replace('{% url 'records' %}')
+                    window.location.replace('{% url 'endValidation' %}')
                 }
             });
-            
-            
         })
 
     </script>

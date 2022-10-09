@@ -25,7 +25,7 @@ class DataPatient(models.Model):
     classification = models.IntegerField()
     active = models.BooleanField()
     exported = models.BooleanField()
-    validatedDoctor = models.BooleanField()
+    validatedDoctor = models.IntegerField()
     justification = models.CharField(max_length=1000)
     class Meta:
         db_table = 'patient'

@@ -3,9 +3,13 @@
 {% block content %}
 
   <div class="jumbotron">
-    <h1>muito obrigado Dr(a). {{ user }}!</h1>
+    <h1>Muito obrigado!</h1> 
+    <a> Agradeço pelo seu apoio nessa validação dos dados, se sentir necessidade de sugerir ou corrigir algo nesse trabalho, pode entrar em contato pelo WhatsApp no link.</a>
+    <br/>
+    <br/>
 
     </a>
+    <a> Se tiver disponibilidade, e quiser validar mais um grupo de pacientes, sinta-se à vontade. </a>
     <a href="{% url 'makeGroups'%}" class="btn btn-success m-1">Começar outra validação</a>
   </div>
 {% endblock content %}

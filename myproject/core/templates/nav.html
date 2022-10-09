@@ -11,15 +11,22 @@
         <a class="nav-link" href="/">Início <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'password_change' %}">Trocar a senha</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="{% url 'records' %}">Registros</a>
       </li>
     </ul>
     <ul class="navbar-nav">
       <li class="nav-item">
+        <a class="nav-link" href="{% url 'password_change' %}">Trocar a senha</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <div class="col-8 text-right">
+          <a aria-label="Suporte pelo WhatsApp" href="https://wa.me/5555999791069">Suporte pelo WhatsApp</a>
+        </div> 
       </li>
     </ul>
   </div>
