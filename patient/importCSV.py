@@ -1,27 +1,26 @@
 # Import required modules
 import csv
 import sqlite3
-
-# Connecting to the geeks database
-#connection = sqlite3.connect('db.sqlite3')
-connection = DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-conn = psycopg2.connect(connection)
-
 import os
 import psycopg2
 
-DATABASE_URL = os.environ['DATABASE_URL']
-
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+# Connecting to the geeks database
+#connection = sqlite3.connect('db.sqlite3')
+conn = psycopg2.connect(database="dadijunvuu9gm3",
+                        user='doxtibbjpjckmm', password='41ec522c36b1e43c28b1e830f4c82ceb4ff124707fae212f63b07654a85631d0', 
+                        host='ec2-44-207-133-100.compute-1.amazonaws.com', port='5432'
+)
+conn.autocommit = True
+cursor = conn.cursor()
 
 print("Deu certo a Conexão")
 
-cur = conn.cursor()
+
   
 # Creating a cursor object to execute
 # SQL queries on a database table
-cursor = connection.cursor()
-  
+cursor = conn.cursor()
+
 # Table Definition
 #create_table = '''CREATE TABLE person(
 #               id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -62,7 +61,7 @@ for r in rows:
     print(r)
   
 # Commiting the changes
-connection.commit()
+conn.commit()
   
 # closing the database connection
-connection.close()
+conn.close()
