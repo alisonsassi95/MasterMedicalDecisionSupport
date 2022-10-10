@@ -19,10 +19,13 @@ from dj_database_url import parse as dburl
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = config('SECRET_KEY')
+#SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
+#DEBUG = os.environ.get('DEBUG') == True
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=Csv())
+#ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=Csv())
+ALLOWED_HOSTS = ['https://mediclasystemdecision.herokuapp.com/']
 
 # Application definition
 
@@ -136,3 +139,5 @@ LOGOUT_REDIRECT_URL = 'core:index'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 django_on_heroku.settings(locals())
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfile')
