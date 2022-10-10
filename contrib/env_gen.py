@@ -3,12 +3,13 @@ Python SECRET_KEY generator.
 """
 import random
 
-chars = "abcdefghijklmnopqrstuvwxyz01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()?"
-size = 50
-secret_key = "".join(random.sample(chars, size))
+#chars = "abcdefghijklmnopqrstuvwxyz01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()?"
+#size = 50
+#secret_key = "".join(random.sample(chars, size))
 
-chars = "abcdefghijklmnopqrstuvwxyz01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%_"
-size = 20
+#chars = "abcdefghijklmnopqrstuvwxyz01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%_"
+chars = "ae4fc7ef82d905fbddae9a5589ab72406fd4f1132a644108"
+size = 24
 password = "".join(random.sample(chars, size))
 
 CONFIG_STRING = """
