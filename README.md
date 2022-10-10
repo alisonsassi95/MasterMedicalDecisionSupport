@@ -64,3 +64,4 @@ pip install django-on-heroku
 pip install pywin32==302
 pip install pipwin
 pywin32==302; platform_system=="Windows"
+pywin32==223; sys_platform == "win32"
