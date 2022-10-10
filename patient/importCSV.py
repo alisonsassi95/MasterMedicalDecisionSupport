@@ -1,15 +1,18 @@
 # Import required modules
 import csv
 import sqlite3
-import dj_database_url
-from myproject.settings import DATABASES
-import psycopg2
 
 # Connecting to the geeks database
-
 #connection = sqlite3.connect('db.sqlite3')
 connection = DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 conn = psycopg2.connect(connection)
+
+import os
+import psycopg2
+
+DATABASE_URL = os.environ['DATABASE_URL']
+
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 print("Deu certo a Conexão")
 
