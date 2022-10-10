@@ -10,6 +10,7 @@ conn = psycopg2.connect(database="dadijunvuu9gm3",
                         user='doxtibbjpjckmm', password='41ec522c36b1e43c28b1e830f4c82ceb4ff124707fae212f63b07654a85631d0', 
                         host='ec2-44-207-133-100.compute-1.amazonaws.com', port='5432'
 )
+
 conn.autocommit = True
 cursor = conn.cursor()
 
@@ -31,8 +32,10 @@ cursor = conn.cursor()
 #cursor.execute(create_table)
   
 # Opening the .csv file
-file = open('NameFileExport.csv')
-  
+file = open('NameFileExport.csv', newline='', encoding='utf-8')
+
+select_all = "SELECT * FROM patient"
+rows = cursor.execute(select_all).fetchall()
 # Reading the contents of the 
 # person-records.csv file
 contents = csv.reader(file)
@@ -42,7 +45,7 @@ contents = csv.reader(file)
 # SQL query to insert data into the
 
 #insert_records = "INSERT INTO patient (name_patient,neurological,MeaningNeurological,cardiovascular,MeaningCardiovascular,respiratory,MeaningRespiratory,coagulation,MeaningCoagulation,hepatic,MeaningHepatic,renal,MeaningRenal,spict,MeaningSpict,ecog,MeaningEcog,scoreSOFA,scoreAmib,group_patient,classification,active,exported,validatedDoctor,justification) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,1,0,0,'')"
-insert_records = "INSERT INTO patient (name_patient,neurological,MeaningNeurological,cardiovascular,MeaningCardiovascular,respiratory,MeaningRespiratory,coagulation,MeaningCoagulation,hepatic,MeaningHepatic,renal,MeaningRenal,spict,MeaningSpict,ecog,MeaningEcog,scoreSOFA,scoreAmib,group_patient,classification,active,exported,validatedDoctor,justification) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,1,0,0,'')"
+insert_records = "INSERT INTO patient (name_patient,neurological,MeaningNeurological,cardiovascular,MeaningCardiovascular,respiratory,MeaningRespiratory,coagulation,MeaningCoagulation,hepatic,MeaningHepatic,renal,MeaningRenal,spict,MeaningSpict,ecog,MeaningEcog,scoreSOFA,scoreAmib,group_patient,classification,active,exported,validatedDoctor,justification) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,0,1,0,0,'')"
   
 # Importing the contents of the file 
 # into our person table
