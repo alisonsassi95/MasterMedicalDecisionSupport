@@ -31,7 +31,7 @@ cursor = conn.cursor()
 #cursor.execute(create_table)
   
 # Opening the .csv file
-file = open('NameFileExport.csv', newline='', encoding='utf-8')
+file = open('NameFileExport.csv')
   
 # Reading the contents of the 
 # person-records.csv file
