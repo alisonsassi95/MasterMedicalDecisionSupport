@@ -1,9 +1,14 @@
 # Import required modules
 import csv
 import sqlite3
-  
+import dj_database_url
+from myproject.settings import DATABASES
+
 # Connecting to the geeks database
-connection = sqlite3.connect('db.sqlite3')
+
+#connection = sqlite3.connect('db.sqlite3')
+connection = DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
   
 # Creating a cursor object to execute
 # SQL queries on a database table
