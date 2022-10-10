@@ -14,8 +14,6 @@ conn.autocommit = True
 cursor = conn.cursor()
 
 print("Deu certo a Conexão")
-
-
   
 # Creating a cursor object to execute
 # SQL queries on a database table
