@@ -5,44 +5,17 @@ conn = psycopg2.connect(database="dadijunvuu9gm3",
                         host='ec2-44-207-133-100.compute-1.amazonaws.com', port='5432'
 )
 cursor = conn.cursor()
-print("Passou aqui 0.")
 with open('NameFileExport.csv', 'r') as f:
     reader = csv.reader(f)
     next(reader) # Skip the header row.
-    print("Passou aqui 1.")
-    for row in reader:
-        print("Passou aqui 2.")
-        insert_query = ("INSERT INTO patient (name_patient,neurological,MeaningNeurological,cardiovascular,MeaningCardiovascular,respiratory,MeaningRespiratory,coagulation,MeaningCoagulation,hepatic,MeaningHepatic,renal,MeaningRenal,spict,MeaningSpict,ecog,MeaningEcog,scoreSOFA,scoreAmib,group_patient,classification,active,exported,validatedDoctor,justification) VALUES (%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s)", row)
-        print(insert_query)
-        cursor.execute(insert_query)
-        print("Passou aqui 3.")
+    cursor.copy_from(f, 'patient', sep=',')
+
+    #for row in reader:
+    #    print("Passou aqui 2.")
+    #    insert_query = ("INSERT INTO patient (name_patient,neurological,MeaningNeurological,cardiovascular,MeaningCardiovascular,respiratory,MeaningRespiratory,coagulation,MeaningCoagulation,hepatic,MeaningHepatic,renal,MeaningRenal,spict,MeaningSpict,ecog,MeaningEcog,scoreSOFA,scoreAmib,group_patient,classification,active,exported,validatedDoctor,justification) VALUES (%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s)", row)
+    #    print(insert_query)
+    #    cursor.execute(insert_query)
+    #    print("Passou aqui 3.")
 conn.commit()
-
-
-
-
-
-conn.autocommit = True
-cursor = conn.cursor()
-  
-  
-sql = '''SELECT * FROM patient;'''
-
-cursor.execute(sql) 
-
-for i in cursor.fetchall():
-    print("entrou!")
-    print(i)
-
-  
-sql2 = '''COPY patient(name_patient,neurological,MeaningNeurological,cardiovascular,MeaningCardiovascular,respiratory,MeaningRespiratory,coagulation,MeaningCoagulation,hepatic,MeaningHepatic,renal,MeaningRenal,spict,MeaningSpict,ecog,MeaningEcog,scoreSOFA,scoreAmib,group_patient,classification,active,exported,validatedDoctor,justification) FROM 'NameFileExport.csv' DELIMITER ',';'''
-  
-cursor.execute(sql2)
-  
-sql3 = '''select * from details;'''
-cursor.execute(sql3)
-for i in cursor.fetchall():
-    print(i)
-  
-conn.commit()
+cursor.close()
 conn.close()
