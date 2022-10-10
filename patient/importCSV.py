@@ -34,8 +34,6 @@ cursor = conn.cursor()
 # Opening the .csv file
 file = open('NameFileExport.csv', newline='', encoding='utf-8')
 
-select_all = "SELECT * FROM patient"
-rows = cursor.execute(select_all).fetchall()
 # Reading the contents of the 
 # person-records.csv file
 contents = csv.reader(file)
