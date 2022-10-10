@@ -3,12 +3,17 @@ import csv
 import sqlite3
 import dj_database_url
 from myproject.settings import DATABASES
+import psycopg2
 
 # Connecting to the geeks database
 
 #connection = sqlite3.connect('db.sqlite3')
 connection = DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+conn = psycopg2.connect(connection)
 
+print("Deu certo a Conexão")
+
+cur = conn.cursor()
   
 # Creating a cursor object to execute
 # SQL queries on a database table
