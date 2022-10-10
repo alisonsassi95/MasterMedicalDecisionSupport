@@ -55,12 +55,13 @@ cursor.execute(insert_records, contents)
 # the person table To verify that the
 # data of the csv file has been successfully 
 # inserted into the table
-select_all = "SELECT * FROM patient"
-rows = cursor.execute(select_all).fetchall()
+
+#select_all = "SELECT * FROM patient"
+#rows = cursor.execute(select_all).fetchall()
   
 # Output to the console screen
-for r in rows:
-    print(r)
+#for r in rows:
+#    print(r)
   
 # Commiting the changes
 conn.commit()
