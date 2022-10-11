@@ -12,10 +12,11 @@ with open('NameFileExport.csv', 'r') as f:
         tran = str(row)[1:-1]
         print("tran->")
         print(tran)
-        insert_query = "INSERT INTO patient (name_patient,neurological,MeaningNeurological,cardiovascular,MeaningCardiovascular,respiratory,MeaningRespiratory,coagulation,MeaningCoagulation,hepatic,MeaningHepatic,renal,MeaningRenal,spict,MeaningSpict,ecog,MeaningEcog,scoreSOFA,scoreAmib,group_patient,classification,active,exported,validatedDoctor,justification) VALUES (%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s)", tran
+        #insert_query = "INSERT INTO patient (name_patient,neurological,MeaningNeurological,cardiovascular,MeaningCardiovascular,respiratory,MeaningRespiratory,coagulation,MeaningCoagulation,hepatic,MeaningHepatic,renal,MeaningRenal,spict,MeaningSpict,ecog,MeaningEcog,scoreSOFA,scoreAmib,group_patient,classification,active,exported,validatedDoctor,justification) VALUES (%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s)", tran
+        insert_records = "INSERT INTO patient (name_patient,neurological,'"'MeaningNeurological'"',cardiovascular,'"'MeaningCardiovascular'"', respiratory,	'"'MeaningRespiratory'"',	coagulation,	'"'MeaningCoagulation'"',	hepatic,	'"'MeaningHepatic'"',	renal,	'"'MeaningRenal'"',	spict,	'"'MeaningSpict'"',	ecog,	'"'MeaningEcog'"',	'"'scoreSOFA'"',	'"'scoreAmib'"',	group_patient,	classification,	active,	exported,	'"'validatedDoctor'"',	justification)name_patient,neurological,MeaningNeurological,cardiovascular,MeaningCardiovascular,respiratory,MeaningRespiratory,coagulation,MeaningCoagulation,hepatic,MeaningHepatic,renal,MeaningRenal,spict,MeaningSpict,ecog,MeaningEcog,scoreSOFA,scoreAmib,group_patient,classification,active,exported,validatedDoctor,justification) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,0,'TRUE','TRUE',0,'NULL')"
         print("------------")
-        print(insert_query)
-        cursor.execute(insert_query)
+        print(insert_records)
+        cursor.execute(insert_records)
         print("Uhuulll")
 conn.commit()
 cursor.close()
