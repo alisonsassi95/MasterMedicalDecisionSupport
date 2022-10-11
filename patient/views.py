@@ -13,7 +13,8 @@ def endValidation(request):
 
 @login_required
 def makeGroups(request):
-    results = DataPatient.objects.raw('SELECT id, count(id) as number_patient, group_patient as group_patient FROM patient WHERE active = 1 AND classification < 1 GROUP BY group_patient')
+    results = DataPatient.objects.raw('SELECT id, count(id) as number_patient, group_patient as group_patient FROM patient WHERE active = TRUE AND classification < 1 GROUP BY group_patient')
+    #results = DataPatient.objects.filter('id').values_list("id").count()
     return render(request, 'makeGroups.html', {'dataPatients': results})
 
 @login_required

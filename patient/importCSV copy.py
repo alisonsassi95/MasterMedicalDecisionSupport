@@ -43,8 +43,7 @@ contents = csv.reader(file, delimiter=',')
 # SQL query to insert data into the
 
 #insert_records = "INSERT INTO patient (name_patient,neurological,MeaningNeurological,cardiovascular,MeaningCardiovascular,respiratory,MeaningRespiratory,coagulation,MeaningCoagulation,hepatic,MeaningHepatic,renal,MeaningRenal,spict,MeaningSpict,ecog,MeaningEcog,scoreSOFA,scoreAmib,group_patient,classification,active,exported,validatedDoctor,justification) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,1,0,0,'')"
-insert_records = "INSERT INTO patient (name_patient,neurological,MeaningNeurological,cardiovascular,MeaningCardiovascular,respiratory,MeaningRespiratory,coagulation,MeaningCoagulation,hepatic,MeaningHepatic,renal,MeaningRenal,spict,MeaningSpict,ecog,MeaningEcog,scoreSOFA,scoreAmib,group_patient,classification,active,exported,validatedDoctor,justification) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,0,1,0,0,'')"
-  
+insert_records = "INSERT INTO patient (name_patient,neurological,'"'MeaningNeurological'"',cardiovascular,'"'MeaningCardiovascular'"', respiratory,	'"'MeaningRespiratory'"',	coagulation,	'"'MeaningCoagulation'"',	hepatic,	'"'MeaningHepatic'"',	renal,	'"'MeaningRenal'"',	spict,	'"'MeaningSpict'"',	ecog,	'"'MeaningEcog'"',	'"'scoreSOFA'"',	'"'scoreAmib'"',	group_patient,	classification,	active,	exported,	'"'validatedDoctor'"',	justification)name_patient,neurological,MeaningNeurological,cardiovascular,MeaningCardiovascular,respiratory,MeaningRespiratory,coagulation,MeaningCoagulation,hepatic,MeaningHepatic,renal,MeaningRenal,spict,MeaningSpict,ecog,MeaningEcog,scoreSOFA,scoreAmib,group_patient,classification,active,exported,validatedDoctor,justification) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,0,'TRUE','TRUE',0,'i')"
 # Importing the contents of the file 
 # into our person table
 cursor.execute(insert_records, contents)
