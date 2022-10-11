@@ -1,4 +1,3 @@
-from base64 import decode
 import csv
 import psycopg2
 conn = psycopg2.connect(database="dadijunvuu9gm3",
@@ -6,7 +5,7 @@ conn = psycopg2.connect(database="dadijunvuu9gm3",
                         host='ec2-44-207-133-100.compute-1.amazonaws.com', port='5432'
 )
 cursor = conn.cursor()
-with open('NameFileExport.csv', 'r', newline='', decode='utf-8') as f:
+with open('NameFileExport.csv', 'r', newline='', encoding='utf-8') as f:
     reader = csv.reader(f)
     next(reader) # Skip the header row.
     for row in reader:
