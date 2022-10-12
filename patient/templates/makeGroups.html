@@ -2,14 +2,13 @@
 
 {% block content %}
 
-  <h1 class='text-center text-secondary mt-4 p-2'>Grupos para Validar</h1>
+  <h1 class='text-center text-secondary mt-4 p-2'>Listagem de Grupos para Validação</h1>
   <hr>
   <nav class="navbar navbar-light bg-light">
     <form class="form-inline">
       <input class="form-control mr-sm-2" type="search" id="myInput" placeholder="Pesquisar" aria-label="Pesquisar">
     </form>
   </nav>
-  <h5>Escolha um grupo de pacientes para validar.</h5>
 
   {% if dataPatients %}
 
@@ -17,20 +16,21 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th class='table-secondary' scope="col" data-toggle="tooltip" title="NumeroClassificacao">Numero do Grupo sem Classificação</th>
-          <th class='table-secondary' scope="col" data-toggle="tooltip" title="NumeroClassificacao">Numero de Pacientes por Grupo</th>
-          <th class='table-secondary' scope="col">Action</th>
+          <th class='table-secondary' scope="col" data-toggle="tooltip" title="NumeroClassificacao">Número do Grupo</th>
+          <th class='table-secondary' scope="col" data-toggle="tooltip" title="NumeroClassificacao">Número de Pacientes Grupo</th>
+          <th class='table-secondary' scope="col">Escolher</th>
         </tr>
       </thead>
       <tbody id="myTable">
-
+        <h5>Processo de Validação</h5>
+        <p> O processo de validação inicia com sua <b>escolha por um grupo de pacientes</b> para validar. <br>
         {% for data in dataPatients %}
         <tr>
           <th scope="row">{{ data.group_patient }}</th>
           <td>{{ data.number_patient }}</td>
           <td>
 
-            <a href="{% url 'validation_group' data.group_patient %}" class="btn btn-danger m-1"> Avaliar </a>
+            <a href="{% url 'validation_group' data.group_patient %}" class="btn btn-info m-1"> Avaliar este grupo </a>
 
           </td>
 

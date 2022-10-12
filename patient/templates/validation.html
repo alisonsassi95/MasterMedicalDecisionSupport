@@ -235,6 +235,15 @@
 <body className='snippet-body'>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <div class="page-content page-container" id="page-content">
+        <h5>Processo de Validação</h5>
+        <p> <s>O processo de validação iniciou com sua escolha por um grupo de pacientes para validar</s>.<br>
+            Cada grupo reúne um <b>conjunto de pacientes pré-selecionados</b> por nosso modelo computacional e com dados sintéticos gerados para cada paciente. <br>
+            <b>No próximo passo</b>, você irá <b>validar a ordem de prioridade</b> estabelecida pelo modelo <b>ou modificá-la</b> de acordo com sua análise a partir dos dados de cada paciente.</p>
+            <br>
+            <h6>Apresentamos os pacientes que integram o grupo selecionado.</h6> <br>
+             <p> A ordem em que eles aparecem <b>indica a sua prioridade para ingresso em leito de UTI</b>. Você deve consultar as 'Aferições' de cada pacientes para confirmar se essa ordem é válida ou então fazer modificações nessa ordem movendo cada paciente para cima ou para baixo na lista.</p>
+             <p> <b>Ao movimentar o paciente</b>, a ordem será automaticamente atualizada para refletir sua indicação. </p> <br>
+             <p> Caso você encontre alguma <b>inconsistência ao verificar os dados</b> do paciente em 'Aferições' (que indiquem valores incompatíveis) solicitamos que você marque o paciente como <b>'registro inválido'</b> ".</p>
         <div class="padding">
             {% if patient_records %}
             <section>
@@ -246,18 +255,17 @@
                             <div class="move">
                                 
                                 <div data-id={{data.name_patient}} id="Orders" class="card">
-                                    <h5 class="index">1</h5>
-                                    <div>
-                                        <a data-toggle="modal" data-target="#modal" class="btn btn-danger m-1 float-right" onclick="setaDadosModal('{{ data.id }}', '{{ data.name_patient }}')">
-                                            {{data.name_patient}} é inválido
-                                        </a>
-                                    </div>
+                                    <h6 class="index text-center">1</h6>
+                                    
 
                                     <div class="card-body">
-                                        <h6 class="card-title">{{data.name_patient}}</h6>
+                                        <h6 class="card-title text-center">{{data.name_patient}}</h6>
 
                                         <p class="accordion">Aferições do paciente (Clique para mais detalhes)</p>
                                         <div class="panel">
+                                            <a data-toggle="modal" data-target="#modal" class="btn btn-info m-1 float-right" onclick="setaDadosModal('{{ data.id }}', '{{ data.name_patient }}')">
+                                                Marcar <b>{{data.name_patient}}</b> inválido
+                                            </a>
                                             <p>
                                                 Score Total: {{data.scoreTotal}} <br>
                                                 NEUROLÓGICO: {{ data.MeaningNeurological }} <br>
@@ -269,6 +277,7 @@
                                                 SPICT: {{ data.MeaningSpict }} <br>
                                                 ECOG: {{ data.MeaningEcog }} <br>
                                             </p>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -303,7 +312,7 @@
 
                 <div class="panel-body">
                     <form id="modalExemplo" method="post" action="">
-                        <label for="justificative">Digite sua justificativa:</label>
+                        <label for="justificative"></label>
                         <textarea class="form-control" id="justificative" rows="3"></textarea>
                         <input type="text" name="id-modal-patient" id="id-modal-patient" hidden>
                     </form>
@@ -338,7 +347,7 @@
 
         let changeS = {}
         function setaDadosModal(id,nome,group) {
-            $('.modal-body').html(' Justifique o motivo da invalidez do paciente ' + nome)
+            $('.modal-body').html('Por favor, indique qual problema você vê nos dados do paciente ' + nome + ' que o levam a invalidá-los')
             document.getElementById('id-modal-patient').value = id;
         }
         
