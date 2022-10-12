@@ -1,9 +1,11 @@
+
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from .models import DataPatient
 from django.views.decorators.csrf import csrf_exempt
-
+import smtplib
+import email.message
 from django.core.paginator import Paginator
 
 
@@ -58,6 +60,7 @@ def updateOrder(request):
             idPatient.exported = 1
             idPatient.validatedDoctor = request.user.id
             idPatient.save()
+        enviar_email("Classificação", "Uma nova classificação foi criada.")
         return redirect('endValidation')
 
 @login_required
@@ -76,4 +79,21 @@ def justification(request):
             idPatient.justification = value
             idPatient.active = 0
             idPatient.save()
+            enviar_email("Justificativa", "Uma justificativa foi criada: <br> Valor:"+value+ " <br> ID Paciente: "+ key)
         return redirect('endValidation')
+
+def enviar_email(titulo_email,corpo_email):
+    msg = email.message.Message()
+    msg['Subject'] = "Sistema Mestrado - " + titulo_email
+    msg['From'] = 'medicalsuportsistem@gmail.com'
+    msg['To'] = 'alisonsassi@outlook.com'
+    password = 'cbkjwoewaegpmqgz' 
+    msg.add_header('Content-Type', 'text/html')
+    msg.set_payload(corpo_email )
+
+    s = smtplib.SMTP('smtp.gmail.com: 587')
+    s.starttls()
+    # Login Credentials for sending the mail
+    s.login(msg['From'], password)
+    s.sendmail(msg['From'], [msg['To']], msg.as_string().encode('utf-8'))
+    print('Email enviado')

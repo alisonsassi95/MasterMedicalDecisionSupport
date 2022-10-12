@@ -235,16 +235,16 @@
 <body className='snippet-body'>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <div class="page-content page-container" id="page-content">
+        <br>
         <h5>Processo de Validação</h5>
-        <p> <s>O processo de validação iniciou com sua escolha por um grupo de pacientes para validar</s>.<br>
-            Cada grupo reúne um <b>conjunto de pacientes pré-selecionados</b> por nosso modelo computacional e com dados sintéticos gerados para cada paciente. <br>
-            <b>No próximo passo</b>, você irá <b>validar a ordem de prioridade</b> estabelecida pelo modelo <b>ou modificá-la</b> de acordo com sua análise a partir dos dados de cada paciente.</p>
-            <br>
-            <h6>Apresentamos os pacientes que integram o grupo selecionado.</h6> <br>
-             <p> A ordem em que eles aparecem <b>indica a sua prioridade para ingresso em leito de UTI</b>. Você deve consultar as 'Aferições' de cada pacientes para confirmar se essa ordem é válida ou então fazer modificações nessa ordem movendo cada paciente para cima ou para baixo na lista.</p>
-             <p> <b>Ao movimentar o paciente</b>, a ordem será automaticamente atualizada para refletir sua indicação. </p> <br>
-             <p> Caso você encontre alguma <b>inconsistência ao verificar os dados</b> do paciente em 'Aferições' (que indiquem valores incompatíveis) solicitamos que você marque o paciente como <b>'registro inválido'</b> ".</p>
-        <div class="padding">
+        <p> <s>[OK]</s> O processo de validação iniciou com sua escolha por um grupo de pacientes para validar.</p>
+            <p> Cada grupo reúne um <b>conjunto de pacientes pré-selecionados</b> por nosso modelo computacional e com dados sintéticos gerados para cada paciente.</p>
+            <p>[ ] <b>No próximo passo</b>, você irá <b>validar a ordem de prioridade</b> estabelecida pelo modelo <b>ou modificá-la</b> de acordo com sua análise a partir dos dados de cada paciente.</p>
+            <h6><i>Apresentamos os pacientes que integram o grupo selecionado:</i></h6>
+             <p> A ordem em que eles aparecem <b>indica a sua prioridade para ingresso em leito de UTI</b>. Você deve consultar as <b>'Aferições do paciente'</b> de cada pacientes para confirmar se essa ordem é válida ou então fazer modificações nessa ordem movendo cada paciente para cima ou para baixo na lista.</p>
+             <p> <b>Ao movimentar o paciente</b>, (arrastando o registro) a ordem será automaticamente atualizada para refletir sua indicação. </p> <br>
+             <p> Caso você encontre alguma <b>inconsistência ao verificar os dados</b> do paciente em 'Aferições' (que indiquem valores incompatíveis) solicitamos que você marque o paciente como <b>'registro inválido'</b>" clicando no botão <a class="btn btn-info"> Marcar <b>paciente</b> inválido</a> .</p>
+        <!--<div class="padding">-->
             {% if patient_records %}
             <section>
                 <form>
@@ -277,7 +277,11 @@
                                                 SPICT: {{ data.MeaningSpict }} <br>
                                                 ECOG: {{ data.MeaningEcog }} <br>
                                             </p>
-                                            
+                                            <!--<div>
+                                                <a class="btn btn-success" onclick="alterarPosicao(id)">Subir posição</a>
+                                                &ensp;&ensp;
+                                                <a class="btn btn-danger" onclick="alterarPosicao()">Descer Posição</a>
+                                            </div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -293,7 +297,7 @@
             {% else %}
             <p>Não existem dados para preencher!</p>
             {% endif %}
-        </div>
+        <!--</div>-->
     </div>
 
         
@@ -343,6 +347,15 @@
                     panel.style.display = "block";
                 }
             });
+        }
+
+        function alterarPosicao(id) {
+            console.log(id)
+            const items = $("#sortable").children();
+            console.log(items)
+            var newVal = $(this).index() + 1;
+            console.log(newVal)
+            $(items).children('.card').children('.index').html(newVal);
         }
 
         let changeS = {}
