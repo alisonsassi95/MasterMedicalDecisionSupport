@@ -1,9 +1,9 @@
 import csv
 import psycopg2
 
-conn = psycopg2.connect(database="dadijunvuu9gm3",
-                        user='doxtibbjpjckmm', password='41ec522c36b1e43c28b1e830f4c82ceb4ff124707fae212f63b07654a85631d0', 
-                        host='ec2-44-207-133-100.compute-1.amazonaws.com', port='5432'
+conn = psycopg2.connect(database="d8dqiu239l9c22",
+                        user='bsnsqyayiqdchl', password='b1fc0d3119362454988c120f43bc974166c1935de605354596183b33266d9382', 
+                        host='ec2-44-194-92-192.compute-1.amazonaws.com', port='5432'
 )
 cursor = conn.cursor()
 with open('../NameFileExport.csv', 'r') as f:
