@@ -103,11 +103,11 @@ def coagulationName(value):
     return coagulationName[value]
 def hepaticName(value):
     hepaticName = {
-            0: "Até 20",
-            1: "Entre 20 e 32",
-            2: "Entre 33 e 101",
-            3: "Entre 102 e 204",
-            4: "Maior que 204"
+            0: "Até 1.2",
+            1: "Entre 1.2 e 1.9",
+            2: "Entre 2 e 5.9",
+            3: "Entre 6 e 11.9",
+            4: "Maior que 12"
         }
     return hepaticName[value]
 

@@ -31,6 +31,9 @@ class Paciente(tp.NamedTuple):
             raise Exception('icc invalida')
         if (not 0 <= ecog <= 4) or (ecog > 0):
             raise Exception('ecog invalida')
+        # Quando Cardio = 1: "PAM < 70mmHg  e Sem uso de vasopressor " o Respiratório tem que ser maior que 0: "PaO2 > 400 em ar ambiente"
+        if (cardi==1) and (respi == 0):
+            raise Exception('Provav Morte')
         # Quando Neuro (3 ou 4) o Respiratório tem que ser 3 ou 4
         if (respi >= 3) and (neuro < 3) or (neuro >= 3) and (respi < 3):
             raise Exception('validacao1 invalida')
@@ -114,7 +117,7 @@ def  inercia_per_alpha(pac: Paciente, data: tp.Sequence[Paciente]) -> float:
 def pro(n):
     print(n, 'start')
     max_ipa = 10000
-    data: tp.List[Paciente] = [Paciente.make() for i in range(10)]
+    data: tp.List[Paciente] = [Paciente.make() for i in range(5)]
     ipa: float = inercia_per_alpha(None, data)
     for _ in range(10000):
         data_2 = list()
