@@ -2,6 +2,7 @@ import typing as tp
 import random
 import csv
 import multiprocessing
+import itertools
 
 class Paciente(tp.NamedTuple):
     neuro: int
@@ -144,12 +145,39 @@ def pro(n):
     data_final = [p + (sofa(p), amib_total(p)) for p in data]
     wirter.writerows(data_final)
 
-def __main__():
+def __main__2():
     # max inertia, minimizar alpha
     with multiprocessing.Pool() as pool:
         for _ in pool.imap_unordered(pro, range(100), chunksize=1):
             pass
     
+preset = set()
+
+def make100(_):
+    global preset
+    return {Paciente.make() for _ in range(1_000)} - preset
+
+def __main__():
+    pool_size = 15_500
+    pool = set()
+    print('start main loop')
+    while len(pool) < pool_size:
+        print(len(pool))
+        global preset
+        preset = pool
+        with multiprocessing.Pool() as worerPool:
+            acumulator = [pool]
+            for d in worerPool.imap_unordered(make100, range(12)):
+                acumulator.append(d)
+                print('.')
+            pool = set(itertools.chain(*acumulator))
+            print(len(pool))
+    print('end main loop')
+    writer = csv.writer(open('Arquivos/arg_space.csv', 'w'), csv.excel)
+    data_final = [p + (sofa(p), amib_total(p)) for p in pool]
+    writer.writerows(data_final)
 
 if (__name__ == '__main__'):
+    print('start main')
     __main__()
+    print('end main')
