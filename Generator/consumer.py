@@ -2,6 +2,7 @@ import csv
 import itertools
 import generator
 import random
+from multiprocessing import Pool
 
 def __main__():
     data = list()
@@ -15,7 +16,7 @@ def __main__():
     leading = data#random.sample(data, 1_000)
     trailing = data#random.sample(data, 1_000)
 
-    writer = csv.writer(open('Arquivos_Tot/roboto_training_data.csv', 'w'))
+    writer = csv.writer(open('Arquivos_Tot/Training_data_comparation_1.csv', 'w'))
     for l in leading:
         print(leading.index(l))
         for l_2 in trailing:
@@ -31,33 +32,9 @@ def __main__():
                     generator.amib_total(pac_2_),
                     compare(l, l_2)
             ))
-        if (len(comparation_set) > 1_000_000):
+        if (len(comparation_set) > 2_000_000):
             writer.writerows(comparation_set)
             comparation_set = list()
-    # data_set = set()
-    # for g in data:
-    #     for l in g:
-    #         data_set.add(l)
-    # comparation_set = list()
-    # if len(data_set) != 1000:
-    #     print(len(data_set))
-    #     raise Exception('clones')
-    # for l in data_set:
-    #     for l_2 in data_set:
-    #         pac_1_ = generator.Paciente(*l[1][0:8])
-    #         pac_2_ = generator.Paciente(*l_2[1][0:8])
-    #         comparation_set.append((
-    #                 f'{l[0]}_vs_{l_2[0]}',
-    #                 *l[1][:8],
-    #                 generator.sofa(pac_1_),
-    #                 generator.amib_total(pac_1_),
-    #                 *l_2[1][:8],
-    #                 generator.sofa(pac_2_),
-    #                 generator.amib_total(pac_2_),
-    #                 compare(l, l_2)
-    #         ))
-    # csv.writer(open('Arquivos_Tot/temp_tot.csv', 'w')).writerows(comparation_set)
-
 
 def compare(pac_1, pac_2):
     pac_1_ = generator.Paciente(*pac_1[1][0:8])
@@ -71,4 +48,5 @@ def compare(pac_1, pac_2):
 
 
 if __name__ == '__main__':
-    __main__()
+    with Pool(200) as p:
+        __main__()

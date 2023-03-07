@@ -30,15 +30,17 @@ class Paciente(tp.NamedTuple):
             raise Exception('renal invalida')
         if 0 != icc != 3:
             raise Exception('icc invalida')
-        if (not 0 <= ecog <= 4) or (ecog > 0):
+        if not (0 <= ecog <= 4):
             raise Exception('ecog invalida')
         # Quando Cardio = 1: "PAM < 70mmHg  e Sem uso de vasopressor " o Respiratório tem que ser maior que 0: "PaO2 > 400 em ar ambiente"
         if (cardi==1) and (respi == 0):
             raise Exception('Provav Morte')
         # Quando Neuro (3 ou 4) o Respiratório tem que ser 3 ou 4
         if (respi >= 3) and (neuro < 3) or (neuro >= 3) and (respi < 3):
-            raise Exception('validacao1 invalida')
-            
+            raise Exception('validacao invalida')
+        #Nao factível quando o ECOG completamente ativo (0) mas esta com glasgow menor que 6
+        if (neuro >= 3) and (ecog == 0):
+            raise Exception('validacao invalida')
         
         return cls(neuro, cardi, respi, coagu, hepat, renal, icc, ecog,)
     
@@ -117,7 +119,7 @@ def  inercia_per_alpha(pac: Paciente, data: tp.Sequence[Paciente]) -> float:
 
 def pro(n):
     print(n, 'start')
-    max_ipa = 10000
+    max_ipa = 1
     data: tp.List[Paciente] = [Paciente.make() for i in range(5)]
     ipa: float = inercia_per_alpha(None, data)
     for _ in range(10000):
@@ -158,7 +160,7 @@ def make100(_):
     return {Paciente.make() for _ in range(1_000)} - preset
 
 def __main__():
-    pool_size = 15_500
+    pool_size = 72_500  # 77.500 registros
     pool = set()
     print('start main loop')
     while len(pool) < pool_size:
